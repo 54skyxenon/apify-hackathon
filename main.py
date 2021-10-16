@@ -17,7 +17,7 @@ json_input_record = kv_store.get_record('INPUT')
 
 ### Verify input was received
 print('Input received:')
-print(type(json_input_record) + ': ' + json_input_record)
+print(str(type(json_input_record)) + ': ' + str(json_input_record))
 
 ### Call the sign language scraper
 scraper = SignLanguageScraper('foo', 'bar')

@@ -17,4 +17,5 @@ print('Input received:')
 print(json_input_record)
 
 print('Dataset')
-print(dataset.update({'foo': 'bar'}))
+dataset.push_items({'foo': 'bar'})
+print(dataset.download_items().decode())

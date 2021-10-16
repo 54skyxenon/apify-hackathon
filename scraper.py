@@ -9,6 +9,7 @@ from selenium.webdriver.common.by import By
 from selenium.common.exceptions import TimeoutException
 
 from webdriver_manager.chrome import ChromeDriverManager
+from webdriver_manager.utils import ChromeType
 
 MAX_DELAY_SECS = 4
 VIDEO_ENDPOINT = 'https://www.spreadthesign.com/isl.intl/search/'
@@ -27,7 +28,7 @@ class SignLanguageScraper:
         ''' Gets a video of our word being read in a specific language. 
             Returns `None` if video translation is unavailable. '''
         
-        driver = webdriver.Chrome(ChromeDriverManager().install())
+        driver = webdriver.Chrome(ChromeDriverManager(chrome_type=ChromeType.GOOGLE).install())
         driver.get(VIDEO_ENDPOINT)
 
         ## search for our word

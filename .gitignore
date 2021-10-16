@@ -4,3 +4,5 @@ include/
 pyvenv.cfg
 lib/
 .vscode/
+*.log
+__pycache__/

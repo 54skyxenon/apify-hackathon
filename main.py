@@ -13,14 +13,14 @@ APIFY_DEFAULT_KEY_VALUE_STORE_ID = os.getenv('APIFY_DEFAULT_KEY_VALUE_STORE_ID')
 ### References to the client data
 apify_client = ApifyClient(token=APIFY_TOKEN)
 kv_store = apify_client.key_value_store(APIFY_DEFAULT_KEY_VALUE_STORE_ID)
-json_input_record = kv_store.get_record('INPUT')
+json_input_record = kv_store.get_record('INPUT')['value']
 
 ### Verify input was received
 print('Input received:')
 print(str(type(json_input_record)) + ': ' + str(json_input_record))
 
 ### Call the sign language scraper
-scraper = SignLanguageScraper('foo', 'bar')
+scraper = SignLanguageScraper(json_input_record['language'], json_input_record['word'])
 
 letter_images_base64 = []
 

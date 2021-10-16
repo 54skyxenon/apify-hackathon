@@ -3,15 +3,13 @@
 from typing import List
 
 from selenium import webdriver
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.common.by import By
 from selenium.common.exceptions import TimeoutException
-
 from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import WebDriverWait
 
 from webdriver_manager.chrome import ChromeDriverManager
-from webdriver_manager.utils import ChromeType
 
 MAX_DELAY_SECS = 4
 VIDEO_ENDPOINT = 'https://www.spreadthesign.com/isl.intl/search/'
@@ -21,7 +19,14 @@ IMAGE_ENDPOINTS = {
     'Czech': 'cz'
 }
 
+CHROME_OPTIONS = Options()
+CHROME_OPTIONS.add_argument('--headless')
+CHROME_OPTIONS.add_argument('--no-sandbox')
+CHROME_OPTIONS.add_argument('--disable-dev-shm-usage')
+
 class SignLanguageScraper:
+    ''' Scraper API class. '''
+    
     def __init__(self, language: str, word: str) -> None:
         self.language = language
         self.word = word
@@ -30,12 +35,7 @@ class SignLanguageScraper:
         ''' Gets a video of our word being read in a specific language. 
             Returns `None` if video translation is unavailable. '''
         
-        chrome_options = Options()
-        chrome_options.add_argument('--headless')
-        chrome_options.add_argument('--no-sandbox')
-        chrome_options.add_argument('--disable-dev-shm-usage')
-
-        driver = webdriver.Chrome(ChromeDriverManager().install(), chrome_options=chrome_options)
+        driver = webdriver.Chrome(ChromeDriverManager().install(), chrome_options=CHROME_OPTIONS)
         driver.get(VIDEO_ENDPOINT)
 
         ## search for our word

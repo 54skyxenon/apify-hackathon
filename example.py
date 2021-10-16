@@ -14,7 +14,7 @@ json_input_record = kv_store.get_record('INPUT')
 print('Input received:')
 print(json_input_record)
 
-json_output_record = kv_store.get_record('OUTPUT')
+kv_store.set_record('OUTPUT', {'foo': 'bar'})
 
 print('Output sent:')
-print(json_output_record)
+print(kv_store.get_record('OUTPUT'))

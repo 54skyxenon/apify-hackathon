@@ -1,4 +1,5 @@
 FROM python:3
+RUN uname -a
 RUN apt-get install firefox-geckodriver
 RUN pip3 install apify-client
 RUN pip3 install selenium

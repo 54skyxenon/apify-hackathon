@@ -8,8 +8,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from selenium.common.exceptions import TimeoutException
 
-from selenium.webdriver import FirefoxOptions
-from webdriver_manager.firefox import GeckoDriverManager
+from webdriver_manager.chrome import ChromeDriverManager
 
 MAX_DELAY_SECS = 4
 VIDEO_ENDPOINT = 'https://www.spreadthesign.com/isl.intl/search/'
@@ -27,11 +26,8 @@ class SignLanguageScraper:
     def get_video_url(self) -> str:
         ''' Gets a video of our word being read in a specific language. 
             Returns `None` if video translation is unavailable. '''
-
-        opts = FirefoxOptions()
-        opts.add_argument("--headless")
-
-        driver = webdriver.Firefox(executable_path=GeckoDriverManager().install(), firefox_options=opts)
+        
+        driver = webdriver.Chrome(ChromeDriverManager().install())
         driver.get(VIDEO_ENDPOINT)
 
         ## search for our word

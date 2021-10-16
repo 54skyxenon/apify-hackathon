@@ -3,6 +3,7 @@
 from apify_client import ApifyClient
 from scraper import SignLanguageScraper
 import os
+import base64
 import json
 
 ### Load actor environment variables
@@ -16,9 +17,21 @@ json_input_record = kv_store.get_record('INPUT')
 
 ### Verify input was received
 print('Input received:')
-print(json_input_record)
+print(type(json_input_record) + ': ' + json_input_record)
+
+### Call the sign language scraper
+scraper = SignLanguageScraper('foo', 'bar')
+
+letter_images_base64 = []
+
+### TODO: implement get spelling images
+# for letter_file_path in scraper.get_spelling_images():
+#     with open(letter_file_path, "rb") as image_file:
+#         encoded_letter_image = base64.b64encode(image_file.read())
+#         images_base64.append(encoded_letter_image)
+
+kv_store.set_record('OUTPUT', {'video_url': scraper.get_video_url(), 'images_base64': letter_images_base64})
 
 ### Verify output being sent is valid
-kv_store.set_record('OUTPUT', {'foo': 'bar'})
 print('Output sent:')
 print(kv_store.get_record('OUTPUT'))

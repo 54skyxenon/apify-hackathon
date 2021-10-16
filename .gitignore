@@ -1,0 +1,6 @@
+bin/
+include/
+.DS_Store
+pyvenv.cfg
+lib/
+.vscode/

@@ -21,7 +21,7 @@ print(str(type(json_input_record)) + ': ' + str(json_input_record))
 scraper = SignLanguageScraper(json_input_record['language'], json_input_record['word'])
 
 ### Add the video url and image urls to output key store
-kv_store.set_record('OUTPUT', {'video_url': scraper.get_video_url(), 'image_urls': scraper.get_spelling_images()})
+kv_store.set_record('OUTPUT', {'video_url': scraper.get_video_url(), 'image_urls': scraper.get_spelling_image_urls()})
 
 ### Verify output being sent is valid
 print('Output sent:')

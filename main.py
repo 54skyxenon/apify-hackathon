@@ -4,6 +4,11 @@ from apify_client import ApifyClient
 from scraper import SignLanguageScraper
 import os
 import base64
+# import sys
+# import subprocess
+
+# p = subprocess.Popen('ls', cwd=os.getcwd(), stdout=sys.stdout)
+# p.wait()
 
 ### Load actor environment variables
 APIFY_TOKEN = os.getenv('APIFY_TOKEN')

@@ -72,7 +72,7 @@ class SignLanguageScraper:
 
         for letter in self.word.lower():
             if letter:
-                image_paths.append(f'assets/us/{letter}.png')
+                image_paths.append(f'./assets/us/{letter}.png')
 
         return image_paths
 
@@ -83,7 +83,7 @@ class SignLanguageScraper:
         
         for letter in transformed:
             if letter:
-                image_paths.append(f'assets/de/{letter}.png')
+                image_paths.append(f'./assets/de/{letter}.png')
 
         return image_paths
 
@@ -101,13 +101,13 @@ class SignLanguageScraper:
         for letter in transformed:
             if letter:
                 if letter in length_marks:
-                    image_paths.append(f'assets/cz/{length_marks[letter]}.png')
-                    image_paths.append(f'assets/cz/length-mark.png')
+                    image_paths.append(f'./assets/cz/{length_marks[letter]}.png')
+                    image_paths.append(f'./assets/cz/length-mark.png')
                 elif letter in hooks:
-                    image_paths.append(f'assets/cz/{hooks[letter]}.png')
-                    image_paths.append(f'assets/cz/hook.png')
+                    image_paths.append(f'./assets/cz/{hooks[letter]}.png')
+                    image_paths.append(f'./assets/cz/hook.png')
                 else:
-                    image_paths.append(f'assets/cz/{letter}.png')
+                    image_paths.append(f'./assets/cz/{letter}.png')
 
         return image_paths
 

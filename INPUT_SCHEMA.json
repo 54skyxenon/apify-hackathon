@@ -17,9 +17,9 @@
             "title": "Word",
             "type": "string",
             "editor": "textfield",
-            "prefill": "university",
+            "prefill": "example",
             "description": "Word to translate to sign language"
         }
     },
-    "required": ["language", "word"]
+    "required": ["word"]
 }

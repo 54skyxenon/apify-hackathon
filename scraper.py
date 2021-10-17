@@ -14,6 +14,11 @@ from webdriver_manager.chrome import ChromeDriverManager
 MAX_DELAY_SECS = 4
 VIDEO_ENDPOINT = 'https://www.spreadthesign.com/isl.intl/search/'
 
+GITHUB_USERNAME = '54skyxenon'
+REPO_NAME = 'apify-hackathon'
+BRANCH_NAME = 'main'
+REMOTE_IMAGE_BASE_URL = f'https://raw.githubusercontent.com/{GITHUB_USERNAME}/{REPO_NAME}/{BRANCH_NAME}/'
+
 CHROME_OPTIONS = Options()
 CHROME_OPTIONS.add_argument('--headless')
 CHROME_OPTIONS.add_argument('--no-sandbox')
@@ -30,7 +35,10 @@ class SignLanguageScraper:
         ''' Gets a video of our word being read in a specific language. 
             Returns `None` if video translation is unavailable. '''
         
-        driver = webdriver.Chrome(ChromeDriverManager().install(), options=CHROME_OPTIONS)
+        driver = webdriver.Chrome(
+            ChromeDriverManager(log_level=0, print_first_line=False).install(),
+            options=CHROME_OPTIONS)
+            
         driver.get(VIDEO_ENDPOINT)
 
         ## search for our word
@@ -55,7 +63,7 @@ class SignLanguageScraper:
         driver.quit()
         return video_url
 
-    def get_spelling_images(self) -> List[str]:
+    def get_spelling_image_urls(self) -> List[str]:
         ''' Maps the spelling of a word to a sequence of image URLs. '''
         if self.language == 'English (United States)':
             return self._american_spelling()
@@ -72,7 +80,7 @@ class SignLanguageScraper:
 
         for letter in self.word.lower():
             if letter:
-                image_paths.append(f'./assets/us/{letter}.png')
+                image_paths.append(REMOTE_IMAGE_BASE_URL + f'assets/us/{letter}.png')
 
         return image_paths
 
@@ -83,7 +91,7 @@ class SignLanguageScraper:
         
         for letter in transformed:
             if letter:
-                image_paths.append(f'./assets/de/{letter}.png')
+                image_paths.append(REMOTE_IMAGE_BASE_URL + f'assets/de/{letter}.png')
 
         return image_paths
 
@@ -101,13 +109,13 @@ class SignLanguageScraper:
         for letter in transformed:
             if letter:
                 if letter in length_marks:
-                    image_paths.append(f'./assets/cz/{length_marks[letter]}.png')
-                    image_paths.append(f'./assets/cz/length-mark.png')
+                    image_paths.append(REMOTE_IMAGE_BASE_URL + f'assets/cz/{length_marks[letter]}.png')
+                    image_paths.append(REMOTE_IMAGE_BASE_URL + 'assets/cz/length-mark.png')
                 elif letter in hooks:
-                    image_paths.append(f'./assets/cz/{hooks[letter]}.png')
-                    image_paths.append(f'./assets/cz/hook.png')
+                    image_paths.append(REMOTE_IMAGE_BASE_URL + f'assets/cz/{hooks[letter]}.png')
+                    image_paths.append(REMOTE_IMAGE_BASE_URL + 'assets/cz/hook.png')
                 else:
-                    image_paths.append(f'./assets/cz/{letter}.png')
+                    image_paths.append(REMOTE_IMAGE_BASE_URL + f'assets/cz/{letter}.png')
 
         return image_paths
 
@@ -115,12 +123,12 @@ class SignLanguageScraper:
 if __name__ == "__main__":
     sl1 = SignLanguageScraper('English (United States)', 'university')
     print(sl1.get_video_url())
-    print(sl1.get_spelling_images())
+    print(sl1.get_spelling_image_urls())
 
     sl2 = SignLanguageScraper('Czech', 'university')
     print(sl2.get_video_url())
-    print(sl2.get_spelling_images())
+    print(sl2.get_spelling_image_urls())
 
     sl3 = SignLanguageScraper('German (Germany)', 'university')
     print(sl3.get_video_url())
-    print(sl3.get_spelling_images())
+    print(sl3.get_spelling_image_urls())

@@ -1,5 +1,7 @@
 ''' scraper.py - Scrapes the webpage data. '''
 
+from googletrans import Translator
+
 from typing import List
 
 from selenium import webdriver
@@ -24,12 +26,15 @@ CHROME_OPTIONS.add_argument('--headless')
 CHROME_OPTIONS.add_argument('--no-sandbox')
 CHROME_OPTIONS.add_argument('--disable-dev-shm-usage')
 
+LANG_CODES = {'English (United States)': 'en', 'Czech': 'cs', 'German (Germany)': 'de'}
+
 class SignLanguageScraper:
     ''' Scraper API class. '''
 
     def __init__(self, language: str, word: str) -> None:
         self.language = language
         self.word = word
+        self.translator = Translator()
 
     def get_video_url(self) -> str:
         ''' Gets a video of our word being read in a specific language. 
@@ -38,12 +43,15 @@ class SignLanguageScraper:
         driver = webdriver.Chrome(
             ChromeDriverManager(log_level=0, print_first_line=False).install(),
             options=CHROME_OPTIONS)
-            
+
         driver.get(VIDEO_ENDPOINT)
+
+        ## convert our word to search in English
+        translation = self.translator.translate(self.word, src=LANG_CODES[self.language], dest=LANG_CODES['English (United States)'])
 
         ## search for our word
         search_field = driver.find_element_by_id('search-field')
-        search_field.send_keys(self.word)
+        search_field.send_keys(translation.text)
         search_field.submit()
 
         ## click language for video URL, then retrieve video mp4 URL

@@ -1,0 +1,25 @@
+{
+    "title": "sign-hack-scraper",
+    "description": "Scraper API for Sign Friendly.",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "language": {
+            "title": "Language",
+            "type": "string",
+            "description": "Select language",
+            "editor": "select",
+            "default": "English (United States)",
+            "enum": ["English (United States)", "Czech", "German (Germany)"],
+            "enumTitles": ["English (US)", "Czech", "German"]
+        },
+        "word": {
+            "title": "Word",
+            "type": "string",
+            "editor": "textfield",
+            "prefill": "university",
+            "description": "Word to translate to sign language"
+        }
+    },
+    "required": ["language", "word"]
+}

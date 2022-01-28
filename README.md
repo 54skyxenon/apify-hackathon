@@ -36,15 +36,18 @@ Sign Friendly makes it easier for you to fill in the required fields, which are 
 
 Your input in JSON should look something like this:
 
+```json
 {
   "word": "university",
   "language": "English (United States)"
 }
+```
 
 ## Output
 
 Once you run the actor, you can view the output in JSON format in the Key-value store section. The output will consist in a PNG image with the sign for each of the letters that make up the word and an MP4 video of the word in sign language. It should look something like this:
 
+```json
 {
   "video_url": "https://media.spreadthesign.com/video/mp4/13/58402.mp4",
   "image_urls": [
@@ -60,6 +63,7 @@ Once you run the actor, you can view the output in JSON format in the Key-value 
     "https://raw.githubusercontent.com/54skyxenon/apify-hackathon/main/assets/us/y.png"
   ]
 }
+```
 
 Keep in mind that the actor stores the results in Key-value store rather than in Dataset.
 

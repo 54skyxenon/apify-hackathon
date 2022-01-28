@@ -1,53 +1,72 @@
 # Sign Friendly
 
-Sign Friendly is a mobile app for the deaf that translates words from multiple languages into that language's sign language representation. This is our actor deployed on the [Apify](https://apify.com) platform, written in Python 3. It scrapes for a video clip of a word's sign language translation and images of its sign language spelling. The mobile app frontend is written in Kotlin and can be found at this [GitLab repository](https://gitlab.com/petra.cende/sign-friendly).
+## Features
 
-![Sign Friendly logo](sh-logo.png)
+This Sign Friendly scraping and automation tool was designed to run on top of the sign language translator app Sign Friendly for Android. Its purpose is to facilitate every-day communication for newly-deaf people or for deaf people with non-deaf people.
 
-## Installation
+The free Sign Friendly actor allows you to [scrape](https://apify.com/web-scraping) ASL software and sign language websites for the translation of text into sign language in different languages. It is an ideal and quick solution if you find yourself in need of conveying a simple message in sign language but don't know where to start. It is designed to extract the sign translation of any word in two different formats:
+ - spelling of the word, letter by letter, in sign language alphabet
+ - word translated in sign language
 
-You can try out the scraper locally by cloning the repository and installing required packages. Write your own tests in the main block.
+This actor was successfully developed during [HackPrague 2021](https://www.hackprague.com/hackathon2021), where it won a sponsored prize for the Apify challenge.
 
-```bash
-pip install -r requirements.txt
-python3 scraper.py
-```
+## Tutorial
 
-## Usage
-Example of input JSON, the `language` and `word` fields are required. Do not forget to pass in `application/json; charset=utf-8` for the `Content-Type` header!
-```json
+You can read more about the actor, its creation and its original usage [in this article](https://www.linkedin.com/pulse/welcome-sign-friendly-actor-app-iskra-rizovska/).
+
+## How to use extracted sign language data
+
+The Sign Friendly actor can be used to help communication for newly-deaf people, or for deaf people with non-deaf people. Other possible uses may include:
+
+ - creating a translation app
+ - designing a basic American/Czech/German Sign Language, dictionary (such as a sign language dictionary app)
+ - shaping a basic sign language course
+ - communicating with a non-verbal autistic person
+ - communicating with a child who hasn't learnt how to speak yet
+ - expanding one's vocabulary
+
+At present, the translation is available in the following languages:
+ - English (US)
+ - Czech
+ - German
+
+## Input
+
+Sign Friendly makes it easier for you to fill in the required fields, which are language and word. You can select the language from a drop-down menu and type the word you want translated into the "word" field.
+
+Your input in JSON should look something like this:
+
 {
-    "language": "Czech",
-    "word": "Řidič" 
+  "word": "university",
+  "language": "English (United States)"
 }
-```
 
-Languages supported are:
-- `English (United States)`
-- `Czech`
-- `German (Germany)`
+## Output
 
-Example of response JSON (this might take a while to load):
-```json
+Once you run the actor, you can view the output in JSON format in the Key-value store section. The output will consist in a PNG image with the sign for each of the letters that make up the word and an MP4 video of the word in sign language. It should look something like this:
+
 {
-  "video_url": ".../ridic.mp4",
+  "video_url": "https://media.spreadthesign.com/video/mp4/13/58402.mp4",
   "image_urls": [
-    ".../assets/cz/r.png",
-    ".../assets/cz/hook.png",
-    ".../assets/cz/i.png",
-    ".../assets/cz/d.png",
-    ".../assets/cz/i.png",
-    ".../assets/cz/c.png",
-    ".../assets/cz/hook.png"
+    "https://raw.githubusercontent.com/54skyxenon/apify-hackathon/main/assets/us/u.png",
+    "https://raw.githubusercontent.com/54skyxenon/apify-hackathon/main/assets/us/n.png",
+    "https://raw.githubusercontent.com/54skyxenon/apify-hackathon/main/assets/us/i.png",
+    "https://raw.githubusercontent.com/54skyxenon/apify-hackathon/main/assets/us/v.png",
+    "https://raw.githubusercontent.com/54skyxenon/apify-hackathon/main/assets/us/e.png",
+    "https://raw.githubusercontent.com/54skyxenon/apify-hackathon/main/assets/us/r.png",
+    "https://raw.githubusercontent.com/54skyxenon/apify-hackathon/main/assets/us/s.png",
+    "https://raw.githubusercontent.com/54skyxenon/apify-hackathon/main/assets/us/i.png",
+    "https://raw.githubusercontent.com/54skyxenon/apify-hackathon/main/assets/us/t.png",
+    "https://raw.githubusercontent.com/54skyxenon/apify-hackathon/main/assets/us/y.png"
   ]
 }
-```
 
+Keep in mind that the actor stores the results in Key-value store rather than in Dataset.
 
-## Contributing
-Currently only these languages are supported: American English, Czech, German. Pull requests are welcome to add support for more languages.
+## Limitations
 
-Please make sure to update tests as appropriate.
+The main limitation of this actor is that it only works for single words rather than sentences. If you type a whole sentence or phrase into the input field, the result will only consist of the spelling for the single letters, rather than the Sign Language translation of the whole.
 
-## License
-[MIT](https://choosealicense.com/licenses/mit/)
+## Feedback
+
+While only three languages are available at this time, the actor is under constant development and more languages will be added in the future. Feel free to [contact us](mailto:support@apify.com) for any suggestions or improvements.
